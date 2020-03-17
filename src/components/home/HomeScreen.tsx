@@ -4,6 +4,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { theme } from '../../constants/theme';
 
 const HomeScreen: React.FC = () => {
+    const PodcastCard = () => {
+        return <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>;
+    }
     return (
         <Box f={1} center bg="white">
             <Box mt="xl" >
@@ -14,11 +17,11 @@ const HomeScreen: React.FC = () => {
                 </Box>
                 <Box>
                     <ScrollView contentContainerStyle={{ marginLeft: theme.space.sm }} horizontal showsHorizontalScrollIndicator={false}>
-                        <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>
-                        <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>
-                        <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>
-                        <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>
-                        <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>
+                        <PodcastCard />
+                        <PodcastCard />
+                        <PodcastCard />
+                        <PodcastCard />
+                        <PodcastCard />
                     </ScrollView>
                 </Box>
             </Box>

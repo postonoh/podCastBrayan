@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import routes from './routes';
-import HomeScreen from 'src/components/home/HomeScreen';
-import ProfileScreen from 'src/components/profile/Profile';
-import LibraryScreen from 'src/components/library/LibraryScreen';
-import DownloadsScreen from 'src/components/downloads/DownloadsScreen';
+import HomeScreen from '../components/home/HomeScreen';
+import ProfileScreen from '../components/profile/Profile';
+import LibraryScreen from '../components/library/LibraryScreen';
+import DownloadsScreen from '../components/downloads/DownloadsScreen';
 
 
 const Tab = createBottomTabNavigator();

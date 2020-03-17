@@ -3,7 +3,7 @@ import { Box, Text } from 'react-native-design-utility';
 
 const HomeScreen: React.FC = () => {
     return (
-        <Box f={1}>
+        <Box f={1} center>
             <Text>HomeScreen</Text>
         </Box>
 

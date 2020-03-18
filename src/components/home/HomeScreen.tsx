@@ -1,4 +1,4 @@
-import React, { RefForwardingComponent } from 'react';
+import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
 import { ScrollView } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -11,18 +11,8 @@ import { Image } from 'react-native';
 
 const PodcastCard: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
     return (
-        <Box mr="sm" w={105} >
-            <Box
-                w={100}
-                h={100}
-                radius="xs"
-                style={{
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowColor: 'red',
-                    shadowOpacity: 0.2,
-                    shadowRadius: 2,
-
-                }}>
+        <Box mr="sm" w={100}>
+            <Box w={100} h={100}>
                 <Image
                     style={{
                         flex: 1, borderRadius: theme.radius.sm

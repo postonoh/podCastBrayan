@@ -5,9 +5,37 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 
 import { theme } from '../../constants/theme';
+import { itunesApiServices } from '../../services/itunesApiServices';
+import { IPodcast } from 'src/types/Podcast';
+import { Image } from 'react-native';
 
-const PodcastCard = () => {
-    return <Box w={100} h={100} radius={4} bg="red" mr="sm"></Box>;
+const PodcastCard: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
+    return (
+        <Box mr="sm" w={105} >
+            <Box
+                w={100}
+                h={100}
+                radius="xs"
+                style={{
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowColor: 'red',
+                    shadowOpacity: 0.2,
+                    shadowRadius: 2,
+
+                }}>
+                <Image
+                    style={{
+                        flex: 1, borderRadius: theme.radius.sm
+                    }}
+                    source={{ uri: podcast.artworkUrl100 }}
+                />
+            </Box>
+            <Box>
+                <Text size="sm" numberOfLines={2}>{podcast.trackName}</Text>
+            </Box>
+        </Box>
+
+    );
 }
 
 const Category: React.FC<{ color: string, icon: string }> = ({ color: color, icon: icon }) => {
@@ -26,6 +54,12 @@ const Category: React.FC<{ color: string, icon: string }> = ({ color: color, ico
 }
 
 const HomeScreen: React.FC = () => {
+    const [podcasts, setPodcasts] = React.useState<IPodcast[]>([]);
+    React.useEffect(() => {
+        itunesApiServices.searchPodcast('syntax').then((results) => {
+            setPodcasts(results);
+        })
+    }, [])
 
     return (
         <Box f={1} bg="white">
@@ -36,11 +70,8 @@ const HomeScreen: React.FC = () => {
                     </Text>
                 </Box>
                 <ScrollView contentContainerStyle={{ marginLeft: theme.space.sm }} horizontal showsHorizontalScrollIndicator={false}>
-                    <PodcastCard />
-                    <PodcastCard />
-                    <PodcastCard />
-                    <PodcastCard />
-                    <PodcastCard />
+                    {podcasts.map(podcast => <PodcastCard podcast={podcast} key={podcast.trackId} />)}
+
                 </ScrollView>
             </Box>
             <Box>

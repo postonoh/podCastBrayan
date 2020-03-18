@@ -9,13 +9,39 @@ import { itunesApiServices } from '../../services/itunesApiServices';
 import { IPodcast } from 'src/types/Podcast';
 import { Image } from 'react-native';
 
+const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
+
+const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
+    return (
+        <Box mb="sm">
+            <Box dir="row"align="center">
+                <Box w={100} h={100} radius="xs" mr="sm">
+                    <Image
+                        style={{
+                            flex: 1, borderRadius: theme.radius.xs,
+                            
+                        }}
+                        source={{ uri: podcast.artworkUrl100 }}
+                    />
+                </Box>
+                <Box>
+                    <Text size="sm" weight="bold" numberOfLines={1}>
+                        {podcast.artistName}</Text>
+                </Box>
+            </Box>
+            <Divider />
+        </Box>
+
+    );
+}
+
 const PodcastCard: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
     return (
         <Box mr="sm" w={100}>
             <Box w={100} h={100}>
                 <Image
                     style={{
-                        flex: 1, borderRadius: theme.radius.sm
+                        flex: 1,
                     }}
                     source={{ uri: podcast.artworkUrl100 }}
                 />
@@ -54,18 +80,7 @@ const HomeScreen: React.FC = () => {
     return (
         <Box f={1} bg="white">
             <Box mt={100} mb="sm">
-                <Box ml="sm" mb="sm">
-                    <Text size="xl" weight="bold">
-                        Trending
-                    </Text>
-                </Box>
-                <ScrollView contentContainerStyle={{ marginLeft: theme.space.sm }} horizontal showsHorizontalScrollIndicator={false}>
-                    {podcasts.map(podcast => <PodcastCard podcast={podcast} key={podcast.trackId} />)}
-
-                </ScrollView>
-            </Box>
-            <Box>
-                <Box ml="sm" mb="sm">
+                {/* <Box ml="sm" mb="sm">
                     <Text size="xl" weight="bold">
                         Categories
                     </Text>
@@ -76,6 +91,11 @@ const HomeScreen: React.FC = () => {
                     <Category icon="heart" color={theme.color.greenLight} />
                     <Category icon="heart" color={theme.color.purple} />
                     <Category icon="heart" color={theme.color.black} />
+                </ScrollView>  */}
+            </Box>
+            <Box>
+                <ScrollView >
+                    {podcasts.map(podcast => <PodcastTitle podcast={podcast} key={podcast.trackId} />)}
                 </ScrollView>
             </Box>
         </Box>

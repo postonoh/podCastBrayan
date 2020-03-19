@@ -8,9 +8,9 @@ interface Props {
 
 const Header: React.FC<Props> = (props) => {
     return (
-        <Box bg={theme.color.blueDark} h={100} justify="end" center >
-            <Box px="sm">
-                <Text size="2xl" color="white">{props.title}</Text>
+        <Box bg={theme.color.blueDark} h={100} justify="end" align="center">
+            <Box px="sm" f={1}>
+                <Text size="3xl" color="white">{props.title}</Text>
             </Box>
 
         </Box>

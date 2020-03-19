@@ -56,6 +56,7 @@ export const theme = {
             xl: 24,
             xxl: 28,
             '2xl': 32,
+            '3xl': 38,
         },
         weight: {
             light: '200',

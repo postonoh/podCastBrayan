@@ -33,30 +33,38 @@ const PodcastScreen: React.FC = () => {
 
     return (
         <Box f={1} bg="white">
-            <Box dir="row" pr="sm" mb="sm">
-                <Box h={100} w={100} mr="xs">
-                    <Image source={{ uri: params.podcast.artworkUrl100 }}
-                        style={{ flex: 1 }}
-                    />
-                </Box>
-                <Box f={1}>
-                    <Text numberOfLines={1}>{params.podcast.trackName}</Text>
-                </Box>
-            </Box>
-            <Box>
-                <Text>
-                    {feed?.description}
-                </Text>
-            </Box>
             <Box>
                 <ScrollView>
-                    {feed?.items.map(item => (
-                        <Box key={item.id}>
-                            <Box>
-                                <Text>{item.title} </Text>
-                            </Box>
+                    <Box dir="row" pr="sm" mb="sm">
+                        <Box h={100} w={100} mr="xs">
+                            <Image source={{ uri: params.podcast.artworkUrl100 }}
+                                style={{ flex: 1 }}
+                            />
                         </Box>
-                    ))}
+                        <Box f={1} >
+                            <Text numberOfLines={1}>{params.podcast.trackName}</Text>
+                        </Box>
+                    </Box>
+                    <Box px="sm" mb="sm">
+                        <Text>
+                            {feed?.description}
+                        </Text>
+                    </Box>
+                    <Box px="sm">
+                        {feed?.items.map(item => (
+                            <Box key={item.id}>
+                                <Box>
+                                    <Box h={50} w={50}>
+                                        <Image source={{ uri: item.itunes.image }} style={{ flex: 1 }} />
+                                    </Box>
+                                    <Box>
+                                        <Text>{item.title} </Text>
+                                    </Box>
+                                </Box>
+                                <Box h={1.5} w="100%" bg="red" />
+                            </Box>
+                        ))}
+                    </Box>
                 </ScrollView>
             </Box>
         </Box>

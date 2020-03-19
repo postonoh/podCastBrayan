@@ -10,18 +10,20 @@ import { IPodcast } from 'src/types/Podcast';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '../../navigations/routes';
+import Header from '../commons/Header';
+
 
 const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
 
 const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
     const { navigate } = useNavigation()
     return (
-        <TouchableOpacity onPress={ () => navigate(routes.PODCAST, { podcast } ) }>
+        <TouchableOpacity onPress={() => navigate(routes.PODCAST, { podcast })}>
             <Box dir="row" align="center">
                 <Box w={100} h={100} radius="xs" mr="sm">
                     <Image
                         style={{
-                            flex: 1, borderRadius: theme.radius.xs,
+                            flex: 1,
                         }}
                         source={{ uri: podcast.artworkUrl100 }}
                     />
@@ -81,6 +83,7 @@ const HomeScreen: React.FC = () => {
 
     return (
         <Box f={1} bg="white">
+            <Header title="Discovery" />
             <Box>
                 <ScrollView >
                     {podcasts.map(podcast => <PodcastTitle podcast={podcast} key={podcast.trackId} />)}

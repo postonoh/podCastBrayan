@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 
@@ -8,29 +8,31 @@ import { theme } from '../../constants/theme';
 import { itunesApiServices } from '../../services/itunesApiServices';
 import { IPodcast } from 'src/types/Podcast';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { routes } from '../../navigations/routes';
 
 const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
 
 const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
+    const { navigate } = useNavigation()
     return (
-        <Box mb="sm">
-            <Box dir="row"align="center">
+        <TouchableOpacity onPress={ () => navigate(routes.PODCAST, { podcast } ) }>
+            <Box dir="row" align="center">
                 <Box w={100} h={100} radius="xs" mr="sm">
                     <Image
                         style={{
                             flex: 1, borderRadius: theme.radius.xs,
-                            
                         }}
                         source={{ uri: podcast.artworkUrl100 }}
                     />
                 </Box>
                 <Box>
                     <Text size="sm" weight="bold" numberOfLines={1}>
-                        {podcast.artistName}</Text>
+                        {podcast.trackName}</Text>
                 </Box>
             </Box>
             <Divider />
-        </Box>
+        </TouchableOpacity>
 
     );
 }
@@ -79,20 +81,6 @@ const HomeScreen: React.FC = () => {
 
     return (
         <Box f={1} bg="white">
-            <Box mt={100} mb="sm">
-                {/* <Box ml="sm" mb="sm">
-                    <Text size="xl" weight="bold">
-                        Categories
-                    </Text>
-                </Box>
-                <ScrollView contentContainerStyle={{ marginLeft: theme.space.sm }} horizontal showsHorizontalScrollIndicator={false}>
-                    <Category icon="heart" color={theme.color.red} />
-                    <Category icon="heart" color={theme.color.blue} />
-                    <Category icon="heart" color={theme.color.greenLight} />
-                    <Category icon="heart" color={theme.color.purple} />
-                    <Category icon="heart" color={theme.color.black} />
-                </ScrollView>  */}
-            </Box>
             <Box>
                 <ScrollView >
                     {podcasts.map(podcast => <PodcastTitle podcast={podcast} key={podcast.trackId} />)}

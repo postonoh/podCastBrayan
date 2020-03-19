@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
-import { ProgressViewIOSComponent } from 'react-native';
+import { theme } from '../../constants/theme';
 
-interface Props{
+interface Props {
     title: string;
 }
 
 const Header: React.FC<Props> = (props) => {
     return (
-        <Box bg="blueLight" h={100} justify="end">
+        <Box bg={theme.color.blueDark} h={100} justify="end" center >
             <Box px="sm">
                 <Text size="2xl" color="white">{props.title}</Text>
             </Box>

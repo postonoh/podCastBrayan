@@ -11,6 +11,7 @@ import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '../../navigations/routes';
 import Header from '../commons/Header';
+import useStatusBar from '../hooks/useStatusBar';
 
 
 const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
@@ -40,21 +41,34 @@ const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
 }
 
 const PodcastCard: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
+    const { navigate } = useNavigation()
     return (
-        <Box mr="sm" w={100}>
-            <Box w={100} h={100}>
-                <Image
+        <TouchableOpacity onPress={() => navigate(routes.PODCAST, { podcast })}>
+            <Box mr="sm" w={142}>
+                <Box
+                    w={140}
+                    h={140}
+                    radius="xs"
                     style={{
-                        flex: 1,
+                        shadowOffset: { width: 1, height: 1 },
+                        borderRadius: theme.radius.xs,
+                        shadowColor: "black",
+                        shadowRadius: 2,
                     }}
-                    source={{ uri: podcast.artworkUrl100 }}
-                />
+                >
+                    <Image
+                        style={{
+                            flex: 1,
+                            borderRadius: theme.radius.xs,
+                        }}
+                        source={{ uri: podcast.artworkUrl100 }}
+                    />
+                </Box>
+                <Box>
+                    <Text weight="bold" size="sm" numberOfLines={2}>{podcast.artistName}</Text>
+                </Box>
             </Box>
-            <Box>
-                <Text size="sm" numberOfLines={2}>{podcast.trackName}</Text>
-            </Box>
-        </Box>
-
+        </TouchableOpacity>
     );
 }
 
@@ -74,6 +88,7 @@ const Category: React.FC<{ color: string, icon: string }> = ({ color: color, ico
 }
 
 const HomeScreen: React.FC = () => {
+    useStatusBar('light-content')
     const [podcasts, setPodcasts] = React.useState<IPodcast[]>([]);
     React.useEffect(() => {
         itunesApiServices.searchPodcast('syntax').then((results) => {
@@ -85,8 +100,11 @@ const HomeScreen: React.FC = () => {
         <Box f={1} bg="white">
             <Header title="Discovery" />
             <Box>
-                <ScrollView >
-                    {podcasts.map(podcast => <PodcastTitle podcast={podcast} key={podcast.trackId} />)}
+                <Box px="sm" mt="md">
+                    <Text weight="bold">Hot Trend</Text>
+                </Box>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ marginLeft: theme.space.sm }} >
+                    {podcasts.map(podcast => <PodcastCard podcast={podcast} key={podcast.trackId} />)}
                 </ScrollView>
             </Box>
         </Box>

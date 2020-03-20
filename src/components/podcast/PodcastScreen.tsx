@@ -1,12 +1,16 @@
 import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { IPodcast } from '../../types/Podcast'
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import { IPodcast } from '../../types/Podcast';
 import { Image, ActivityIndicator } from 'react-native';
 import { feedUrlServices } from '../../services/FeedUrlServices';
 import { Feed } from 'react-native-rss-parser';
 import { theme } from '../../constants/theme';
 import { ScrollView } from 'react-native-gesture-handler';
+import useStatusBar from '../hooks/useStatusBar';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 
 type ProfileScreenRouteProp = RouteProp<
     { Podcast: { podcast: IPodcast } },
@@ -14,6 +18,7 @@ type ProfileScreenRouteProp = RouteProp<
 >;
 
 const PodcastScreen: React.FC = () => {
+    useStatusBar('dark-content')
     const { params } = useRoute<ProfileScreenRouteProp>();
     const [feed, setFeed] = React.useState<Feed | null>(null);
 
@@ -35,8 +40,8 @@ const PodcastScreen: React.FC = () => {
         <Box f={1} bg="white">
             <Box>
                 <ScrollView>
-                    <Box dir="row" pr="sm" mb="sm">
-                        <Box h={100} w={100} mr="xs">
+                    <Box dir="row" p="sm" mb="sm">
+                        <Box h={100} w={100} mr="sm">
                             <Image source={{ uri: params.podcast.artworkUrl100 }}
                                 style={{ flex: 1 }}
                             />
@@ -45,26 +50,31 @@ const PodcastScreen: React.FC = () => {
                             <Text numberOfLines={1}>{params.podcast.trackName}</Text>
                         </Box>
                     </Box>
-                    <Box px="sm" mb="sm">
+                    <Box px="sm">
                         <Text>
                             {feed?.description}
                         </Text>
                     </Box>
-                    <Box px="sm">
-                        {feed?.items.map(item => (
-                            <Box key={item.id}>
-                                <Box>
-                                    <Box h={50} w={50}>
-                                        <Image source={{ uri: item.itunes.image }} style={{ flex: 1 }} />
-                                    </Box>
-                                    <Box>
-                                        <Text>{item.title} </Text>
+
+                    {feed?.items.map(item => (
+                        <Box key={item.id}>
+                            <Box px="sm" py="sm" dir="row" align="center" justify="between">
+                                <Box f={1}>
+                                    <Text weight="bold" size="sm">{item.title}</Text>
+                                    <Box dir="row">
+                                        <Text color="redLight" size="xs" weight="bold" mr="sm">
+                                            {formatDistanceToNow(new Date(item.published), { addSuffix: true })}
+                                        </Text>
+                                        <Text color="redLight" size="xs">{item.itunes.duration}</Text>
                                     </Box>
                                 </Box>
-                                <Box h={1.5} w="100%" bg="red" />
+                                <Box w={50} align="end"> 
+                                    <FeatherIcon name="arrow-down-circle" size={20} color={theme.color.redLight} />
+                                </Box>
                             </Box>
-                        ))}
-                    </Box>
+                            <Box h={1} w="100%" bg="redLightest" />
+                        </Box>
+                    ))}
                 </ScrollView>
             </Box>
         </Box>

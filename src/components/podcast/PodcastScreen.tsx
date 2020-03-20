@@ -63,6 +63,7 @@ const PodcastScreen: React.FC = () => {
                                 <Box f={1}>
                                     <Text weight="bold" size="sm" onPress={async () => {
                                         await TrackPlayer.reset();
+                                        
                                         await TrackPlayer.add({
                                             id: 'trackId',
                                             url: item.links[0].url,
@@ -72,6 +73,7 @@ const PodcastScreen: React.FC = () => {
                                         });
 
                                         TrackPlayer.play();
+                                        TrackPlayer.stop();
 
                                     }}>{item.title}</Text>
                                     <Box dir="row">

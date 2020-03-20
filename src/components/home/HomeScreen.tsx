@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
 import { routes } from '../../navigations/routes';
 import Header from '../commons/Header';
 import useStatusBar from '../hooks/useStatusBar';
+import TrackPlayerServices from '../../services/TrackPlayerServices';
+
 
 
 const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
@@ -96,6 +98,13 @@ const HomeScreen: React.FC = () => {
             setPodcasts(results);
         })
     }, [])
+
+    React.useEffect(() => {
+        TrackPlayer.setupPlayer().then(async () => {
+            
+        }).catch(e => console.log('error', e))
+        TrackPlayer.registerPlaybackService(() => TrackPlayerServices);
+    }, []);
 
     return (
         <Box f={1} bg="white">

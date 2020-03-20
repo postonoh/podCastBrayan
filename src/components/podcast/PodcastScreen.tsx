@@ -64,9 +64,8 @@ const PodcastScreen: React.FC = () => {
                         <Box key={item.id}>
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">
                                 <Box f={1}>
-                                    <Text weight="bold" size="sm" onPress={async () => {
+                                    <Text weight="bold" size="sm" onPress={ async () => {
                                         await TrackPlayer.reset();
-
                                         await TrackPlayer.add({
                                             id: 'trackId',
                                             url: item.links[0].url,
@@ -74,10 +73,7 @@ const PodcastScreen: React.FC = () => {
                                             artist: 'Track Artist',
                                             //artwork: require('track.png')
                                         });
-
                                         TrackPlayer.play();
-                                        TrackPlayer.stop();
-
                                     }}>{item.title}</Text>
                                     <Box dir="row">
                                         <Text color="redLight" size="xs" weight="bold" mr="sm" >

@@ -48,6 +48,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation: React.FC = () => {
     return (
+        
         <Tab.Navigator tabBarOptions={{
             activeTintColor: theme.color.blueDarkest,
             inactiveTintColor: theme.color.red,

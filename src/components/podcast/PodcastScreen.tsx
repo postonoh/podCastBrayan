@@ -10,6 +10,7 @@ import { theme } from '../../constants/theme';
 import { ScrollView } from 'react-native-gesture-handler';
 import useStatusBar from '../hooks/useStatusBar';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import TrackPlayer from 'react-native-track-player';
 
 
 type ProfileScreenRouteProp = RouteProp<
@@ -60,9 +61,21 @@ const PodcastScreen: React.FC = () => {
                         <Box key={item.id}>
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">
                                 <Box f={1}>
-                                    <Text weight="bold" size="sm">{item.title}</Text>
+                                    <Text weight="bold" size="sm" onPress={async () => {
+                                        await TrackPlayer.reset();
+                                        await TrackPlayer.add({
+                                            id: 'trackId',
+                                            url: item.links[0].url,
+                                            title: 'Track Title',
+                                            artist: 'Track Artist',
+                                            //artwork: require('track.png')
+                                        });
+
+                                        TrackPlayer.play();
+
+                                    }}>{item.title}</Text>
                                     <Box dir="row">
-                                        <Text color="redLight" size="xs" weight="bold" mr="sm">
+                                        <Text color="redLight" size="xs" weight="bold" mr="sm" >
                                             {formatDistanceToNow(new Date(item.published), { addSuffix: true })}
                                         </Text>
                                         <Text color="redLight" size="xs">{item.itunes.duration}</Text>

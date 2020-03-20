@@ -7,6 +7,7 @@ import {
 import { Box, UtilityThemeProvider } from 'react-native-design-utility';
 import { theme } from './src/constants/theme';
 import MainNavigation from './src/navigations/MainNavigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 declare var global: { HermesInternal: null | {} };
@@ -14,9 +15,9 @@ declare var global: { HermesInternal: null | {} };
 const App = () => {
   return (
     <UtilityThemeProvider theme={theme}>
-      <Box f={1}>
+      <SafeAreaProvider>
         <MainNavigation />
-      </Box>
+      </SafeAreaProvider>
     </UtilityThemeProvider>
 
   );

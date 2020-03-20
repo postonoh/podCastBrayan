@@ -13,6 +13,7 @@ import { theme } from '../constants/theme';
 import PodcastScreen from '../components/podcast/PodcastScreen';
 import { IPodcast } from '../types/Podcast';
 import { truncate } from '../helpers/text';
+import TabBar from '../components/commons/TabBar';
 
 
 
@@ -47,9 +48,10 @@ const HomeNavigation: React.FC = () => {
 const Tab = createBottomTabNavigator();
 
 const TabNavigation: React.FC = () => {
-    return (
-        
-        <Tab.Navigator tabBarOptions={{
+    return (        
+        <Tab.Navigator
+            tabBar={(props) => <TabBar {...props}/>}
+            tabBarOptions={{
             activeTintColor: theme.color.blueDarkest,
             inactiveTintColor: theme.color.red,
             showLabel: false

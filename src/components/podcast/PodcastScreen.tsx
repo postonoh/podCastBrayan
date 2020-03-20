@@ -44,10 +44,13 @@ const PodcastScreen: React.FC = () => {
                     <Box dir="row" p="sm" mb="sm">
                         <Box h={100} w={100} mr="sm">
                             <Image source={{ uri: params.podcast.artworkUrl100 }}
-                                style={{ flex: 1 }}
+                                style={{
+                                    flex: 1,
+                                    borderRadius: theme.radius.sm,
+                                }}
                             />
                         </Box>
-                        <Box f={1} >
+                        <Box f={1} center >
                             <Text numberOfLines={1}>{params.podcast.trackName}</Text>
                         </Box>
                     </Box>
@@ -63,7 +66,7 @@ const PodcastScreen: React.FC = () => {
                                 <Box f={1}>
                                     <Text weight="bold" size="sm" onPress={async () => {
                                         await TrackPlayer.reset();
-                                        
+
                                         await TrackPlayer.add({
                                             id: 'trackId',
                                             url: item.links[0].url,
@@ -83,7 +86,7 @@ const PodcastScreen: React.FC = () => {
                                         <Text color="redLight" size="xs">{item.itunes.duration}</Text>
                                     </Box>
                                 </Box>
-                                <Box w={50} align="end"> 
+                                <Box w={50} align="end">
                                     <FeatherIcon name="arrow-down-circle" size={20} color={theme.color.redLight} />
                                 </Box>
                             </Box>

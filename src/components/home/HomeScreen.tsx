@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-
+import TrackPlayer from 'react-native-track-player';
 
 import { theme } from '../../constants/theme';
 import { itunesApiServices } from '../../services/itunesApiServices';
@@ -41,7 +41,8 @@ const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
 }
 
 const PodcastCard: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
-    const { navigate } = useNavigation()
+    const { navigate } = useNavigation();
+
     return (
         <TouchableOpacity onPress={() => navigate(routes.PODCAST, { podcast })}>
             <Box mr="sm" w={142}>

@@ -8,7 +8,7 @@ import { feedUrlServices } from '../../services/FeedUrlServices';
 import { Feed } from 'react-native-rss-parser';
 import { theme } from '../../constants/theme';
 import { ScrollView } from 'react-native-gesture-handler';
-import useStatusBar from '../hooks/useStatusBar';
+import useStatusBar from '../../hooks/useStatusBar';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import TrackPlayer from 'react-native-track-player';
 

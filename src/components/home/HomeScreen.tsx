@@ -11,7 +11,7 @@ import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '../../navigations/routes';
 import Header from '../commons/Header';
-import useStatusBar from '../hooks/useStatusBar';
+import useStatusBar from '../../hooks/useStatusBar';
 import TrackPlayerServices from '../../services/TrackPlayerServices';
 
 

@@ -2,13 +2,13 @@ import React from 'react';
 import { Box } from 'react-native-design-utility';
 import { useSafeArea } from 'react-native-safe-area-context';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Player from './Player';
 import routes from '../../navigations/routes';
 import { metrics } from '../../constants/metrics';
 import { theme } from '../../constants/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
 
 
 const ICONS = {
@@ -28,7 +28,7 @@ const TabBar: React.FC<BottomTabBarProps> = (props) => {
     const onTabPress = (routeName: string, routeIndex: number) => () => {
         props.navigation.navigate(routeName);
     };
-    
+
     return (
         <>
             <Player />

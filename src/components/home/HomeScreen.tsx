@@ -16,10 +16,11 @@ import TrackPlayerServices from '../../services/TrackPlayerServices';
 
 
 
-const Divider = () => <Box h={1} w="100%" bg="greyLight" />;
+const Divider = () => <Box h={1} w="100%" bg="redLightest" />;
 
 const PodcastTitle: React.FC<{ podcast: IPodcast }> = ({ podcast }) => {
-    const { navigate } = useNavigation()
+    const { navigate } = useNavigation();
+
     return (
         <TouchableOpacity onPress={() => navigate(routes.PODCAST, { podcast })}>
             <Box dir="row" align="center">

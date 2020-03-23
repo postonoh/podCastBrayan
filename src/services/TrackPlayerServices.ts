@@ -1,6 +1,6 @@
 import TrackPlayer from 'react-native-track-player';
 
-const TrackPlayerServices = async function() {
+const TrackPlayerServices = async function () {
 
     TrackPlayer.addEventListener('remote-play', () => TrackPlayer.play());
 

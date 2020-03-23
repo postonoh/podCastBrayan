@@ -29,11 +29,11 @@ const Player: React.FC = () => {
             <Box dir="row" f={1} align="center" justify="end">
                 <Box mr="sm">
                     {playerStore.isPlaying ? (
-                        <TouchableOpacity hitSlop={metrics.makeHItSlop(20)}>
+                        <TouchableOpacity hitSlop={metrics.makeHItSlop(20)} onPress={playerStore.pause}>
                             <FeatherIcon color={theme?.color.white} name="pause" size={25} />
                         </TouchableOpacity>
                     ) : (
-                            <TouchableOpacity hitSlop={metrics.makeHItSlop(20)}>
+                            <TouchableOpacity hitSlop={metrics.makeHItSlop(20)} onPress={playerStore.play}>
                                 <FeatherIcon color={theme?.color.white} name="play" size={25} />
                             </TouchableOpacity>
                         )}

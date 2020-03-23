@@ -1,25 +1,23 @@
 import React from 'react';
 import { Box } from 'react-native-design-utility';
 import { useSafeArea } from 'react-native-safe-area-context';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs/src/types';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import Player from './Player';
-import routes from '../../navigations/routes';
+import { routes } from '../../navigations/routes';
 import { metrics } from '../../constants/metrics';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import { theme } from '../../constants/theme';
-
 
 const ICONS = {
     [routes.HOME]: 'home',
-    [routes.DOWNLOADS]: 'headphones',
     [routes.LIBRARY]: 'inbox',
-    [routes.PROFILE]: 'user'
-}
+    [routes.DOWNLOADS]: 'headphones',
+    [routes.PROFILE]: 'user',
+};
 
-
-const TabBar: React.FC<BottomTabBarProps> = (props) => {
+const TabBar: React.FC<BottomTabBarProps> = props => {
     const insets = useSafeArea();
 
     const activeTintColor = theme.color.blueDark;
@@ -32,28 +30,38 @@ const TabBar: React.FC<BottomTabBarProps> = (props) => {
     return (
         <>
             <Player />
-            <Box h={50 + insets.bottom} w="100%" dir="row">
-                {
-                    props.state.routes.map((route, index) => {
-                        const icon = ICONS[route.name];
+            <Box
+                h={50 + insets.bottom}
+                w="100%"
+                bg="white"
+                dir="row"
+                pb="sm"
+                style={{ borderTopWidth: 1, borderTopColor: theme.color.redDarkest }}>
+                {props.state.routes.map((route, index) => {
+                    const icon = ICONS[route.name];
 
-                        const color = props.state.index === index ? activeTintColor : inactiveTintColor;
+                    const color =
+                        props.state.index === index ? activeTintColor : inactiveTintColor;
 
-                        return (
-                            <Box f={1} center key={route.key}>
-                                <TouchableOpacity style={styles.tabBtn}
-                                    onPress={onTabPress(route.name, index)}>
-                                    <Box f={1} center>
-                                        <FeatherIcon name={icon} size={metrics.tabIconSize} color={color} />
-                                    </Box>
-                                </TouchableOpacity>
-                            </Box>
-                        );
-                    })}
+                    return (
+                        <Box f={1} center key={route.key}>
+                            <TouchableOpacity
+                                style={styles.tabBtn}
+                                onPress={onTabPress(route.name, index)}>
+                                <FeatherIcon
+                                    name={icon}
+                                    size={metrics.tabIconSize}
+                                    color={color}
+                                />
+                            </TouchableOpacity>
+                        </Box>
+                    );
+                })}
             </Box>
         </>
-    )
-}
+    );
+};
+
 const styles = StyleSheet.create({
     tabBtn: {
         flex: 1,
@@ -61,4 +69,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
 export default TabBar;

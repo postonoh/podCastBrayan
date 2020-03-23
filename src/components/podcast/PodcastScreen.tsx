@@ -11,6 +11,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import useStatusBar from '../../hooks/useStatusBar';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import TrackPlayer from 'react-native-track-player';
+import { observer } from 'mobx-react';
+import { useRootStore } from '../../contexts/RootStoreContext';
 
 
 type ProfileScreenRouteProp = RouteProp<
@@ -21,6 +23,7 @@ type ProfileScreenRouteProp = RouteProp<
 const PodcastScreen: React.FC = () => {
     useStatusBar('dark-content')
     const { params } = useRoute<ProfileScreenRouteProp>();
+    const { playerStore } = useRootStore();
     const [feed, setFeed] = React.useState<Feed | null>(null);
 
     React.useEffect(() => {
@@ -64,16 +67,16 @@ const PodcastScreen: React.FC = () => {
                         <Box key={item.id}>
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">
                                 <Box f={1}>
-                                    <Text weight="bold" size="sm" onPress={ async () => {
-                                        await TrackPlayer.reset();
-                                        await TrackPlayer.add({
-                                            id: 'trackId',
+                                    <Text numberOfLines={1} weight="bold" size="sm" onPress={async () => {
+
+                                        playerStore.start({
+                                            id: item.id,
                                             url: item.links[0].url,
-                                            title: 'Track Title',
-                                            artist: 'Track Artist',
-                                            //artwork: require('track.png')
+                                            title: item.title,
+                                            artist: params.podcast.artistName,
+                                            artwork: item.itunes.image,
+                                            duration: item.itunes.duration
                                         });
-                                        TrackPlayer.play();
                                     }}>{item.title}</Text>
                                     <Box dir="row">
                                         <Text color="redLight" size="xs" weight="bold" mr="sm" >
@@ -95,4 +98,4 @@ const PodcastScreen: React.FC = () => {
     )
 }
 
-export default PodcastScreen;
+export default observer(PodcastScreen);

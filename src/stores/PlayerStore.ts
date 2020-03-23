@@ -6,12 +6,26 @@ import TrackPlayer, {
     STATE_PAUSED
 } from 'react-native-track-player';
 
+
+interface ITrack {
+    id: string;
+    title: string;
+    artist: string;
+    duration: string;
+    url: string;
+    artwork?: string;
+
+}
+
 class PlayerStore {
 
     rootStore: RootStore;
 
     @observable
     private _playerState: TrackPlayerState | null = null;
+
+    @observable
+    public currentTrack: ITrack | null = null;
 
 
     constructor(rootStore: RootStore) {
@@ -23,6 +37,20 @@ class PlayerStore {
                 runInAction(() => this._playerState = state);
             },
         );
+    }
+
+    @action
+    public async start(track: ITrack) {
+        this.currentTrack = track;
+        await TrackPlayer.reset();
+        await TrackPlayer.add({
+            artist: track.artist,
+            title: track.title,
+            id: track.id,
+            artwork: track.artwork,
+            url: track.url,
+
+        });
     }
 
     @action

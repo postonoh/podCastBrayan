@@ -11,9 +11,9 @@ import React from "react";
 const useStatusBar = (style: StatusBarStyle, animated = true) => {
     useFocusEffect(
         React.useCallback(() => {
-            StatusBar.setBarStyle(style, animated)
+            StatusBar.setBarStyle(style, animated);
         }, []),
-    )
-}
+    );
+};
 
 export default useStatusBar;

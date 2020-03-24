@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
-import {useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { IPodcast } from '../../types/Podcast';
-import { Image, ActivityIndicator, ScrollView  } from 'react-native';
+import { Image, ActivityIndicator, ScrollView } from 'react-native';
 import { feedUrlServices } from '../../services/FeedUrlServices';
 import { Feed } from 'react-native-rss-parser';
 import { theme } from '../../constants/theme';
@@ -53,15 +53,11 @@ const PodcastScreen: React.FC = () => {
                             />
                         </Box>
                         <Box f={1} center >
-                            <Text numberOfLines={1}>{params.podcast.trackName}</Text>
+                            <Text size="sm">
+                                {feed?.description}
+                            </Text>
                         </Box>
                     </Box>
-                    <Box px="sm">
-                        <Text>
-                            {feed?.description}
-                        </Text>
-                    </Box>
-
                     {feed?.items.map(item => (
                         <Box key={item.id}>
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">

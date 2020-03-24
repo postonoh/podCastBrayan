@@ -7,7 +7,7 @@ import { Image, ActivityIndicator } from 'react-native';
 import { feedUrlServices } from '../../services/FeedUrlServices';
 import { Feed } from 'react-native-rss-parser';
 import { theme } from '../../constants/theme';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import useStatusBar from '../../hooks/useStatusBar';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import TrackPlayer from 'react-native-track-player';
@@ -67,9 +67,9 @@ const PodcastScreen: React.FC = () => {
                         <Box key={item.id}>
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">
                                 <Box f={1}>
-                                    <Text numberOfLines={1} weight="bold" size="sm" onPress={async () => {
+                                    <TouchableOpacity onPress={async () => {
 
-                                        playerStore.start({
+                                        await playerStore.start({
                                             id: item.id,
                                             url: item.links[0].url,
                                             title: item.title,
@@ -77,13 +77,15 @@ const PodcastScreen: React.FC = () => {
                                             artwork: item.itunes.image,
                                             duration: item.itunes.duration
                                         });
-                                    }}>{item.title}</Text>
-                                    <Box dir="row">
-                                        <Text color="redLight" size="xs" weight="bold" mr="sm" >
-                                            {formatDistanceToNow(new Date(item.published), { addSuffix: true })}
-                                        </Text>
-                                        <Text color="redLight" size="xs">{item.itunes.duration}</Text>
-                                    </Box>
+                                    }}>
+                                        <Text numberOfLines={1} weight="bold" size="sm">{item.title}</Text>
+                                        <Box dir="row">
+                                            <Text color="redLight" size="xs" weight="bold" mr="sm" >
+                                                {formatDistanceToNow(new Date(item.published), { addSuffix: true })}
+                                            </Text>
+                                            <Text color="redLight" size="xs">{item.itunes.duration}</Text>
+                                        </Box>
+                                    </TouchableOpacity>
                                 </Box>
                                 <Box w={50} align="end">
                                     <FeatherIcon name="arrow-down-circle" size={20} color={theme.color.redLight} />

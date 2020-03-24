@@ -1,16 +1,15 @@
 import React from 'react';
 import { Box, Text } from 'react-native-design-utility';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import {useRoute, RouteProp } from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { IPodcast } from '../../types/Podcast';
-import { Image, ActivityIndicator } from 'react-native';
+import { Image, ActivityIndicator, ScrollView  } from 'react-native';
 import { feedUrlServices } from '../../services/FeedUrlServices';
 import { Feed } from 'react-native-rss-parser';
 import { theme } from '../../constants/theme';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import useStatusBar from '../../hooks/useStatusBar';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import TrackPlayer from 'react-native-track-player';
 import { observer } from 'mobx-react';
 import { useRootStore } from '../../contexts/RootStoreContext';
 
@@ -68,7 +67,6 @@ const PodcastScreen: React.FC = () => {
                             <Box px="sm" py="sm" dir="row" align="center" justify="between">
                                 <Box f={1}>
                                     <TouchableOpacity onPress={async () => {
-
                                         await playerStore.start({
                                             id: item.id,
                                             url: item.links[0].url,

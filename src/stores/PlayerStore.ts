@@ -63,6 +63,13 @@ class PlayerStore {
         await TrackPlayer.pause();
     }
 
+    @action
+    public async seek30() {
+        const position = await TrackPlayer.getPosition()
+        console.log('position', position);
+        await TrackPlayer.seekTo(position + 30);
+    }
+
     @computed
     public get isPlaying() {
         return this._playerState === STATE_PLAYING;

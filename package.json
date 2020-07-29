@@ -18,6 +18,8 @@
     "@types/react-native-vector-icons": "^6.4.5",
     "date-fns": "^2.11.0",
     "install": "^0.13.0",
+    "lodash": "^4.17.19",
+    "logkitty": "^0.7.1",
     "mem": "^6.0.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.8",

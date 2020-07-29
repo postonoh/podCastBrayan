@@ -1,11 +1,11 @@
 import { action, computed, observable, runInAction } from 'mobx';
-import RootStore from './RootStore';
 import TrackPlayer, {
     State as TrackPlayerState,
+    STATE_PAUSED,
     STATE_PLAYING,
-    STATE_PAUSED
 } from 'react-native-track-player';
 
+import RootStore from './RootStore';
 
 interface ITrack {
     id: string;
@@ -14,11 +14,9 @@ interface ITrack {
     duration: string;
     url: string;
     artwork?: string;
-
 }
 
 class PlayerStore {
-
     rootStore: RootStore;
 
     @observable
@@ -27,40 +25,17 @@ class PlayerStore {
     @observable
     public currentTrack: ITrack | null = null;
 
-
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
 
         TrackPlayer.addEventListener(
             'playback-state',
             ({ state }: { state: TrackPlayerState }) => {
-                runInAction(() => this._playerState = state);
+                runInAction(() => {
+                    this._playerState = state;
+                });
             },
         );
-    }
-
-    @action
-    public async start(track: ITrack) {
-        this.currentTrack = track;
-        await TrackPlayer.reset();
-        await TrackPlayer.add({
-            artist: track.artist,
-            title: track.title,
-            id: track.id,
-            artwork: track.artwork,
-            url: track.url,
-
-        });
-    }
-
-    @action
-    public async play() {
-        await TrackPlayer.play();
-    }
-
-    @action
-    public async pause() {
-        await TrackPlayer.pause();
     }
 
     @computed
@@ -73,6 +48,38 @@ class PlayerStore {
         return this._playerState === STATE_PAUSED;
     }
 
+    @action
+    public start = async (track: ITrack) => {
+        this.currentTrack = track;
+        await TrackPlayer.reset();
+        await TrackPlayer.add({
+            artist: track.artist,
+            title: track.title,
+            id: track.id,
+            artwork: track.artwork,
+            url: track.url,
+        });
+
+        this.play();
+    };
+
+    public play = async () => {
+        await TrackPlayer.play();
+    };
+
+    public pause = async () => {
+        await TrackPlayer.pause();
+    };
+
+    private seekInc = async (inc: number) => {
+        const position = await TrackPlayer.getPosition();
+        await TrackPlayer.seekTo(position + inc);
+    };
+
+    public seek30 = async () => {
+        console.log('this', this);
+        await this.seekInc(30);
+    };
 }
 
 export default PlayerStore;

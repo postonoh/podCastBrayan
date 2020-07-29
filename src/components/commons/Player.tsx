@@ -46,13 +46,14 @@ const Player: React.FC = () => {
                             <FeatherIcon color={theme?.color.white} name="pause" size={25} />
                         </TouchableOpacity>
                     ) : (
-                            <TouchableOpacity hitSlop={metrics.makeHItSlop(20)} onPress={playerStore.play}>
-                                <FeatherIcon color={theme?.color.white} name="play" size={25} />
-                            </TouchableOpacity>
-                        )}
+                        <TouchableOpacity hitSlop={metrics.makeHItSlop(20)} onPress={playerStore.play}>
+                            <FeatherIcon color={theme?.color.white} name="play" size={25} />
+                        </TouchableOpacity>
+                     )}
                 </Box>
                 <Box >
-                    <TouchableOpacity hitSlop={metrics.makeHItSlop(20)}>
+                    <TouchableOpacity hitSlop={metrics.makeHItSlop(20)}
+                    onPress={playerStore.seek30}>
                         <FeatherIcon color={theme?.color.white} name="rotate-cw" size={25} />
                     </TouchableOpacity>
                 </Box>
